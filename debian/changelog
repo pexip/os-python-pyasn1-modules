@@ -1,3 +1,9 @@
+python-pyasn1-modules (0.0.5-0.1pexip1) pexip; urgency=low
+
+  * Prepare Pexip packaging
+
+ -- John-Mark Bell <jmb@pexip.com>  Mon, 08 Sep 2014 15:37:30 +0000
+
 python-pyasn1-modules (0.0.5-0.1) unstable; urgency=medium
 
   * Non-maintainer upload.
