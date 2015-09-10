@@ -1,3 +1,12 @@
+python-pyasn1-modules (0.0.7-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * New upstream release. Builds with pyasn 0.1.8. Closes: #796473.
+  * Run the tests for all python3 versions.
+  * Update watch file.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 10 Sep 2015 15:44:06 +0200
+
 python-pyasn1-modules (0.0.5-0.1) unstable; urgency=medium
 
   * Non-maintainer upload.
