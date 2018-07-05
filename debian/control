@@ -10,7 +10,7 @@ Standards-Version: 3.9.5
 Homepage: http://pypi.python.org/pypi/pyasn1-modules
 Vcs-Git: git://git.debian.org/collab-maint/python-pyasn1-modules.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/python-pyasn1-modules.git;a=summary
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ jessie
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
 
 Package: python-pyasn1-modules
 Architecture: all
