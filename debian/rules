@@ -16,6 +16,9 @@ override_dh_auto_test:
 	set -ex; \
 	export PYINTERP=python; \
 	for script in test/*.sh; do PYTHONPATH=.:./tools PATH=./tools:$$PATH sh -x $$script; done
+
 	set -ex; \
-	export PYINTERP=python3; \
-	for script in test/*.sh; do PYTHONPATH=.:./tools PATH=./tools:$$PATH sh -x $$script; done
+	for py in $$(py3versions -s); do \
+	  export PYINTERP=$$py; \
+	  for script in test/*.sh; do PYTHONPATH=.:./tools PATH=./tools:$$PATH sh -x $$script; done; \
+	done
