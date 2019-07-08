@@ -1,3 +1,9 @@
+python-pyasn1-modules (0.0.7-0.1pexip2) pexip; urgency=medium
+
+  * Python3
+
+ -- Carl Chipperfield <carl@pexip.com>  Sat, 22 Jun 2019 00:19:28 +0000
+
 python-pyasn1-modules (0.0.7-0.1pexip1) pexip; urgency=medium
 
   * Migrate to Stretch
