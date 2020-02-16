@@ -1,3 +1,18 @@
+python-pyasn1-modules (0.2.1-0.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * control: Bump build-depends on python-pyasn1.
+  * Upload to unstable.
+
+ -- Timo Aaltonen <tjaalton@debian.org>  Tue, 02 Jan 2018 13:18:24 +0200
+
+python-pyasn1-modules (0.2.1-0.1) experimental; urgency=medium
+
+  * Non-maintainer upload.
+  * New upstream release. Builds with pyasn1 0.4.2.
+
+ -- Timo Aaltonen <tjaalton@debian.org>  Sun, 24 Dec 2017 22:09:18 +0200
+
 python-pyasn1-modules (0.0.7-0.1pexip2) pexip; urgency=medium
 
   * Python3
