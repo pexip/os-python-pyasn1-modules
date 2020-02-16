@@ -1,3 +1,9 @@
+python-pyasn1-modules (0.2.1-0.2pexip1) pexip; urgency=medium
+
+  * Migrate to Buster
+
+ -- Vincent Sanders <vince@pexip.com>  Sun, 16 Feb 2020 23:38:51 +0000
+
 python-pyasn1-modules (0.2.1-0.2) unstable; urgency=medium
 
   * Non-maintainer upload.
