@@ -1,3 +1,28 @@
+python-pyasn1-modules (0.2.8-1) unstable; urgency=low
+
+  [ Debian Janitor ]
+  * Use versioned copyright format URI.
+  * Use secure URI in debian/watch.
+  * Use secure URI in Homepage field.
+  * Bump debhelper from deprecated 8 to 12.
+  * Set debhelper-compat version in Build-Depends.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+
+  [ Ondřej Nový ]
+  * d/control: Update Maintainer field with new Debian Python Team
+    contact address.
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+  [ Debian Janitor ]
+  * Bump debhelper from old 12 to 13.
+
+  [ Julien Cristau ]
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 06 Apr 2022 11:09:34 +0200
+
 python-pyasn1-modules (0.2.1-1) unstable; urgency=medium
 
   * Take over under DPMT umbrella, Marc is still part of Uploaders
