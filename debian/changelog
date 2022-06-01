@@ -1,3 +1,10 @@
+python-pyasn1-modules (0.2.1-1) unstable; urgency=medium
+
+  * Take over under DPMT umbrella, Marc is still part of Uploaders
+  * Drop python2 support; Closes: #938055
+
+ -- Sandro Tosi <morph@debian.org>  Sat, 04 Apr 2020 20:09:23 -0400
+
 python-pyasn1-modules (0.2.1-0.2pexip2) pexip; urgency=medium
 
   * Rebuild in buster environment
