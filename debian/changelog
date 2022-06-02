@@ -1,3 +1,9 @@
+python-pyasn1-modules (0.2.1-1pexip1) pexip; urgency=medium
+
+  * Initial bullseye build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 02 Jun 2022 14:42:50 +0100
+
 python-pyasn1-modules (0.2.1-1) unstable; urgency=medium
 
   * Take over under DPMT umbrella, Marc is still part of Uploaders
