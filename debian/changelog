@@ -1,3 +1,9 @@
+python-pyasn1-modules (0.2.8-1pexip1) pexip-bookworm; urgency=medium
+
+  * Initial bookworm build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 16 Nov 2023 10:25:41 +0000
+
 python-pyasn1-modules (0.2.8-1) unstable; urgency=low
 
   [ Debian Janitor ]
