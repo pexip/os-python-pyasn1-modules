@@ -1,3 +1,9 @@
+python-pyasn1-modules (0.2.8-1+pexip24u3) pexip-bookworm; urgency=medium
+
+  * New versioning scheme
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 01 Feb 2024 16:25:11 +0000
+
 python-pyasn1-modules (0.2.8-1pexip2) pexip-bookworm; urgency=medium
 
   * Bookworm build for product distribution
