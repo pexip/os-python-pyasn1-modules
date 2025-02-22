@@ -2,17 +2,27 @@ Source: python-pyasn1-modules
 Section: python
 Priority: optional
 Maintainer: Debian Python Team <team+python@tracker.debian.org>
-Uploaders: Marc Haber <mh+debian-packages@zugschlus.de>,
-Build-Depends: debhelper-compat (= 13), dh-python,
-  python3-all, python3-pyasn1 (>= 0.4.1)
+Uploaders:
+ Marc Haber <mh+debian-packages@zugschlus.de>,
+Build-Depends:
+ debhelper-compat (= 13),
+ pybuild-plugin-pyproject,
+ dh-sequence-python3,
+ python3-all,
+ python3-pyasn1,
+ python3-setuptools,
+Rules-Requires-Root: no
 Standards-Version: 3.9.6
-Homepage: https://pypi.python.org/pypi/pyasn1-modules
+Homepage: https://github.com/pyasn1/pyasn1-modules
 Vcs-Git: https://salsa.debian.org/python-team/packages/python-pyasn1-modules.git
 Vcs-Browser: https://salsa.debian.org/python-team/packages/python-pyasn1-modules
 
 Package: python3-pyasn1-modules
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, python3-pyasn1 (>= 0.4.6~),
+Depends:
+ python3-pyasn1 (>= 0.4.6~),
+ ${misc:Depends},
+ ${python3:Depends},
 Description: Collection of protocols modules written in ASN.1 language (Python 3)
  This is a small but growing collection of ASN.1 data structures
  expressed in Python terms using pyasn1 data model.

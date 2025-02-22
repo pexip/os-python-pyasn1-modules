@@ -1,14 +1,10 @@
 #
 # This file is part of pyasn1-modules software.
 #
-# Copyright (c) 2005-2019, Ilya Etingof <etingof@gmail.com>
+# Copyright (c) 2005-2020, Ilya Etingof <etingof@gmail.com>
 # License: http://snmplabs.com/pyasn1/license.html
 #
-try:
-    import unittest2 as unittest
-
-except ImportError:
-    import unittest
+import unittest
 
 suite = unittest.TestLoader().loadTestsFromNames(
     ['tests.test_pem.suite',
@@ -20,21 +16,30 @@ suite = unittest.TestLoader().loadTestsFromNames(
      'tests.test_rfc2560.suite',
      'tests.test_rfc2631.suite',
      'tests.test_rfc2634.suite',
+     'tests.test_rfc2876.suite',
      'tests.test_rfc2985.suite',
      'tests.test_rfc2986.suite',
+     'tests.test_rfc3058.suite',
      'tests.test_rfc3114.suite',
+     'tests.test_rfc3125.suite',
      'tests.test_rfc3161.suite',
      'tests.test_rfc3274.suite',
      'tests.test_rfc3279.suite',
      'tests.test_rfc3280.suite',
      'tests.test_rfc3281.suite',
+     'tests.test_rfc3370.suite',
      'tests.test_rfc3447.suite',
+     'tests.test_rfc3537.suite',
      'tests.test_rfc3560.suite',
      'tests.test_rfc3565.suite',
+     'tests.test_rfc3657.suite',
      'tests.test_rfc3709.suite',
+     'tests.test_rfc3739.suite',
      'tests.test_rfc3770.suite',
      'tests.test_rfc3779.suite',
+     'tests.test_rfc3820.suite',
      'tests.test_rfc3852.suite',
+     'tests.test_rfc4010.suite',
      'tests.test_rfc4043.suite',
      'tests.test_rfc4055.suite',
      'tests.test_rfc4073.suite',
@@ -42,16 +47,29 @@ suite = unittest.TestLoader().loadTestsFromNames(
      'tests.test_rfc4210.suite',
      'tests.test_rfc4211.suite',
      'tests.test_rfc4334.suite',
+     'tests.test_rfc4357.suite',
+     'tests.test_rfc4387.suite',
+     'tests.test_rfc4476.suite',
+     'tests.test_rfc4490.suite',
+     'tests.test_rfc4491.suite',
+     'tests.test_rfc4683.suite',
      'tests.test_rfc4985.suite',
      'tests.test_rfc5035.suite',
      'tests.test_rfc5083.suite',
      'tests.test_rfc5084.suite',
+     'tests.test_rfc5126.suite',
      'tests.test_rfc5208.suite',
+     'tests.test_rfc5275.suite',
      'tests.test_rfc5280.suite',
      'tests.test_rfc5480.suite',
+     'tests.test_rfc5636.suite',
+     'tests.test_rfc5639.suite',
      'tests.test_rfc5649.suite',
      'tests.test_rfc5652.suite',
+     'tests.test_rfc5697.suite',
      'tests.test_rfc5751.suite',
+     'tests.test_rfc5752.suite',
+     'tests.test_rfc5753.suite',
      'tests.test_rfc5755.suite',
      'tests.test_rfc5913.suite',
      'tests.test_rfc5914.suite',
@@ -104,7 +122,12 @@ suite = unittest.TestLoader().loadTestsFromNames(
      'tests.test_rfc8494.suite',
      'tests.test_rfc8520.suite',
      'tests.test_rfc8619.suite',
-     'tests.test_rfc8649.suite']
+     'tests.test_rfc8649.suite',
+     'tests.test_rfc8692.suite',
+     'tests.test_rfc8696.suite',
+     'tests.test_rfc8702.suite',
+     'tests.test_rfc8708.suite',
+     'tests.test_rfc8769.suite']
 )
 
 

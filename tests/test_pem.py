@@ -1,20 +1,14 @@
 #
 # This file is part of pyasn1-modules software.
 #
-# Copyright (c) 2005-2019, Ilya Etingof <etingof@gmail.com>
+# Copyright (c) 2005-2020, Ilya Etingof <etingof@gmail.com>
 # License: http://snmplabs.com/pyasn1/license.html
 #
 import sys
+import unittest
 
 from pyasn1.compat.octets import ints2octs
-
 from pyasn1_modules import pem
-
-try:
-    import unittest2 as unittest
-
-except ImportError:
-    import unittest
 
 
 class PemTestCase(unittest.TestCase):
@@ -42,7 +36,7 @@ GGbx7DI=
 
         binary = pem.readBase64fromText(self.pem_text)
 
-        assert binary
+        self.assertTrue(binary)
 
         expected = [
             48, 130, 3, 1, 48, 130, 1, 233, 2, 1, 0, 48, 129, 153, 49, 11, 48,
@@ -99,13 +93,11 @@ GGbx7DI=
             24, 102, 241, 236, 50
         ]
 
-        assert ints2octs(expected) == binary
+        self.assertEqual(ints2octs(expected), binary)
 
 
 suite = unittest.TestLoader().loadTestsFromModule(sys.modules[__name__])
 
 if __name__ == '__main__':
-    import sys
-
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     sys.exit(not result.wasSuccessful())

@@ -1,0 +1,137 @@
+From: Alexandre Detiste <tchet@debian.org>
+Forwarded: https://github.com/pyasn1/pyasn1-modules/pull/24
+
+--- a/tests/test_rfc3770.py
++++ b/tests/test_rfc3770.py
+@@ -10,7 +10,6 @@
+ 
+ from pyasn1.codec.der.decoder import decode as der_decoder
+ from pyasn1.codec.der.encoder import encode as der_encoder
+-from pyasn1.compat.octets import str2octs
+ 
+ from pyasn1_modules import pem
+ from pyasn1_modules import rfc5480
+@@ -79,7 +78,7 @@
+                 self.assertEqual(extn['extnValue'], der_encoder(extnValue))
+ 
+                 if extn['extnID'] == rfc3770.id_pe_wlanSSID:
+-                    self.assertIn(str2octs('Example'), extnValue)
++                    self.assertIn(b'Example', extnValue)
+ 
+                 if extn['extnID'] == rfc5280.id_ce_extKeyUsage:
+                     self.assertIn(rfc3770.id_kp_eapOverLAN, extnValue)
+--- a/tests/test_rfc4073.py
++++ b/tests/test_rfc4073.py
+@@ -10,7 +10,6 @@
+ 
+ from pyasn1.codec.der.decoder import decode as der_decoder
+ from pyasn1.codec.der.encoder import encode as der_encoder
+-from pyasn1.compat.octets import str2octs
+ 
+ from pyasn1_modules import pem
+ from pyasn1_modules import rfc2634
+@@ -131,7 +130,7 @@
+ 
+             self.assertIn(next_ci['contentType'], rfc5652.cmsContentTypesMap)
+             self.assertEqual(rfc5652.id_data, next_ci['contentType'])
+-            self.assertIn(str2octs('Content-Type: text'), next_ci['content'])
++            self.assertIn(b'Content-Type: text', next_ci['content'])
+ 
+             for attr in ci['content']['attrs']:
+                 self.assertIn(attr['attrType'], rfc5652.cmsAttributesMap)
+--- a/tests/test_rfc4334.py
++++ b/tests/test_rfc4334.py
+@@ -10,7 +10,6 @@
+ 
+ from pyasn1.codec.der.decoder import decode as der_decoder
+ from pyasn1.codec.der.encoder import encode as der_encoder
+-from pyasn1.compat.octets import str2octs
+ 
+ from pyasn1_modules import pem
+ from pyasn1_modules import rfc5280
+@@ -67,7 +66,7 @@
+                 self.assertEqual(extn['extnValue'], der_encoder(extnValue))
+ 
+                 if extn['extnID'] == rfc4334.id_pe_wlanSSID:
+-                    self.assertIn( str2octs('Example'), extnValue)
++                    self.assertIn( b'Example', extnValue)
+             
+                 if extn['extnID'] == rfc5280.id_ce_extKeyUsage:
+                     self.assertIn(rfc4334.id_kp_eapOverLAN, extnValue)
+--- a/tests/test_rfc5755.py
++++ b/tests/test_rfc5755.py
+@@ -10,7 +10,6 @@
+ 
+ from pyasn1.codec.der.decoder import decode as der_decoder
+ from pyasn1.codec.der.encoder import encode as der_encoder
+-from pyasn1.compat.octets import str2octs
+ 
+ from pyasn1_modules import pem
+ from pyasn1_modules import rfc5280
+@@ -85,7 +84,7 @@
+             count += 1
+             if attr['type'] == rfc5755.id_aca_authenticationInfo:
+                 self.assertEqual(
+-                    str2octs('password'), attr['values'][0]['authInfo'])
++                    b'password', attr['values'][0]['authInfo'])
+ 
+         self.assertEqual(5, count)
+ 
+--- a/tests/test_rfc6032.py
++++ b/tests/test_rfc6032.py
+@@ -10,7 +10,6 @@
+ 
+ from pyasn1.codec.der.decoder import decode as der_decoder
+ from pyasn1.codec.der.encoder import encode as der_encoder
+-from pyasn1.compat.octets import str2octs
+ 
+ from pyasn1_modules import pem
+ from pyasn1_modules import rfc5652
+@@ -64,7 +63,7 @@
+         self.assertFalse(rest)
+         self.assertTrue(keyid.prettyPrint())
+         self.assertEqual(attrVal0, der_encoder(keyid))
+-        self.assertEqual(str2octs('ptf-kdc-812374'), keyid)
++        self.assertEqual(b'ptf-kdc-812374', keyid)
+ 
+     def testOpenTypes(self):
+         substrate = pem.readBase64fromText(self.encrypted_key_pkg_pem_text)
+@@ -86,8 +85,7 @@
+             self.assertNotEqual('0x', attr['attrValues'][0].prettyPrint()[:2])
+ 
+             if attr['attrType'] == rfc6032.id_aa_KP_contentDecryptKeyID:
+-                self.assertEqual(str2octs(
+-                    'ptf-kdc-812374'), attr['attrValues'][0])
++                self.assertEqual(b'ptf-kdc-812374', attr['attrValues'][0])
+ 
+ 
+ suite = unittest.TestLoader().loadTestsFromModule(sys.modules[__name__])
+--- a/tests/test_rfc6120.py
++++ b/tests/test_rfc6120.py
+@@ -10,7 +10,6 @@
+ 
+ from pyasn1.codec.der.decoder import decode as der_decoder
+ from pyasn1.codec.der.encoder import encode as der_encoder
+-from pyasn1.compat.octets import str2octs
+ 
+ from pyasn1_modules import pem
+ from pyasn1_modules import rfc5280
+--- a/tests/test_pem.py
++++ b/tests/test_pem.py
+@@ -7,7 +7,6 @@
+ import sys
+ import unittest
+ 
+-from pyasn1.compat.octets import ints2octs
+ from pyasn1_modules import pem
+ 
+ 
+@@ -93,7 +92,7 @@
+             24, 102, 241, 236, 50
+         ]
+ 
+-        self.assertEqual(ints2octs(expected), binary)
++        self.assertEqual(bytes(expected), binary)
+ 
+ 
+ suite = unittest.TestLoader().loadTestsFromModule(sys.modules[__name__])
