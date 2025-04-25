@@ -5,8 +5,8 @@
 # Copyright (c) 2019, Vigil Security, LLC
 # License: http://snmplabs.com/pyasn1/license.html
 #
-
 import sys
+import unittest
 
 from pyasn1.codec.der import decoder as der_decoder
 from pyasn1.codec.der import encoder as der_encoder
@@ -15,38 +15,39 @@ from pyasn1_modules import pem
 from pyasn1_modules import rfc5280
 from pyasn1_modules import rfc8226
 
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
-
 
 class JWTClaimConstraintsTestCase(unittest.TestCase):
-    jwtcc_pem_text = "MD2gBzAFFgNmb2+hMjAwMBkWA2ZvbzASDARmb28xDARmb28yDARmb28zMBMWA2JhcjAMDARiYXIxDARiYXIy"
+    jwtcc_pem_text = ("MD2gBzAFFgNmb2+hMjAwMBkWA2ZvbzASDARmb28xDARmb28yDARmb2"
+                      "8zMBMWA2JhcjAMDARiYXIxDARiYXIy")
 
     def setUp(self):
         self.asn1Spec = rfc8226.JWTClaimConstraints()
 
     def testDerCodec(self):
         substrate = pem.readBase64fromText(self.jwtcc_pem_text)
-        asn1Object, rest = der_decoder.decode(substrate, asn1Spec=self.asn1Spec)
-        assert not rest
-        assert asn1Object.prettyPrint()
-        assert der_encoder.encode(asn1Object) == substrate
+        asn1Object, rest = der_decoder.decode(
+            substrate, asn1Spec=self.asn1Spec)
+
+        self.assertFalse(rest)
+        self.assertTrue(asn1Object.prettyPrint())
+        self.assertEqual(substrate, der_encoder.encode(asn1Object))
 
 
 class TNAuthorizationListTestCase(unittest.TestCase):
-    tnal_pem_text = "MCugBxYFYm9ndXOhEjAQFgo1NzE1NTUxMjEyAgIDFKIMFgo3MDM1NTUxMjEy"
+    tnal_pem_text = ("MCugBxYFYm9ndXOhEjAQFgo1NzE1NTUxMjEyAgIDFKIMFgo3MDM1NTU"
+                     "xMjEy")
 
     def setUp(self):
         self.asn1Spec = rfc8226.TNAuthorizationList()
 
     def testDerCodec(self):
         substrate = pem.readBase64fromText(self.tnal_pem_text)
-        asn1Object, rest = der_decoder.decode(substrate, asn1Spec=self.asn1Spec)
-        assert not rest
-        assert asn1Object.prettyPrint()
-        assert der_encoder.encode(asn1Object) == substrate
+        asn1Object, rest = der_decoder.decode(
+            substrate, asn1Spec=self.asn1Spec)
+
+        self.assertFalse(rest)
+        self.assertTrue(asn1Object.prettyPrint())
+        self.assertEqual(substrate, der_encoder.encode(asn1Object))
 
 
 class CertificateOpenTypesTestCase(unittest.TestCase):
@@ -72,28 +73,32 @@ yEFWA6G95b/HbtPMTjLpPKtrOjhofc4LyVCDYhFhKzpvHh1qeA==
 
     def testDerCodec(self):
         substrate = pem.readBase64fromText(self.cert_pem_text)
-        asn1Object, rest = der_decoder.decode(substrate, asn1Spec=self.asn1Spec)
-        assert not rest
-        assert asn1Object.prettyPrint()
-        assert der_encoder.encode(asn1Object) == substrate
+        asn1Object, rest = der_decoder.decode(
+            substrate, asn1Spec=self.asn1Spec)
 
-        extn_list = [ ]
+        self.assertFalse(rest)
+        self.assertTrue(asn1Object.prettyPrint())
+        self.assertEqual(substrate, der_encoder.encode(asn1Object))
+
+        extn_list = []
         for extn in asn1Object['tbsCertificate']['extensions']:
             extn_list.append(extn['extnID'])
             if extn['extnID'] in rfc5280.certificateExtensionsMap.keys():
-                extnValue, rest = der_decoder.decode(extn['extnValue'],
+                extnValue, rest = der_decoder.decode(
+                    extn['extnValue'],
                     asn1Spec=rfc5280.certificateExtensionsMap[extn['extnID']])
-                assert der_encoder.encode(extnValue) == extn['extnValue']
+
+                self.assertEqual(
+                    extn['extnValue'], der_encoder.encode(extnValue))
 
                 if extn['extnID'] == rfc8226.id_pe_TNAuthList:
-                    assert extnValue[0]['spc'] == 'fake'
+                    self.assertEqual('fake', extnValue[0]['spc'])
 
-        assert rfc8226.id_pe_TNAuthList in extn_list
+        self.assertIn(rfc8226.id_pe_TNAuthList, extn_list)
+
 
 suite = unittest.TestLoader().loadTestsFromModule(sys.modules[__name__])
 
 if __name__ == '__main__':
-    import sys
-
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     sys.exit(not result.wasSuccessful())
