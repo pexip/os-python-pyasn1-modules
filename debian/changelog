@@ -1,3 +1,43 @@
+python-pyasn1-modules (0.4.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Patch-out usage of deprecated pyasn1.compat.octets Python 2+3 shim
+    Closes: #1098604
+
+ -- Alexandre Detiste <tchet@debian.org>  Sat, 22 Feb 2025 13:48:21 +0100
+
+python-pyasn1-modules (0.4.1-1) unstable; urgency=medium
+
+  * Team Upload
+  * New upstream version 0.4.1
+  * Add build-dependency on python3-setuptools (Closes: #1080764)
+  * Use dh-sequence-python3
+
+ -- Alexandre Detiste <tchet@debian.org>  Wed, 09 Oct 2024 22:19:14 +0200
+
+python-pyasn1-modules (0.4.0-1) unstable; urgency=medium
+
+  * New upstream version (Closes: #1051857).
+
+ -- Emmanuel Arias <eamanu@debian.org>  Fri, 23 Aug 2024 11:04:37 -0300
+
+python-pyasn1-modules (0.3.0-1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster:
+    + Build-Depends: Drop versioned constraint on python3-pyasn1.
+
+  [ Thomas Goirand ]
+  * Switch d/watch to version 4 and mode=git, plus use github instead of
+    pypi.debian.net.
+  * New upstream release.
+  * Ran wrap-and-sort -bastk.
+  * Add pybuild-plugin-pyproject as build-depends.
+  * Switch the homepage to the Github project URL.
+  * Add autopkgtest.
+
+ -- Thomas Goirand <zigo@debian.org>  Mon, 08 Apr 2024 09:12:55 +0200
+
 python-pyasn1-modules (0.2.8-1+pexip24u3) pexip-bookworm; urgency=medium
 
   * New versioning scheme

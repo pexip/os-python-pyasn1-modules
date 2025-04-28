@@ -1,28 +1,21 @@
 #
 # This file is part of pyasn1-modules software.
 #
-# Copyright (c) 2005-2019, Ilya Etingof <etingof@gmail.com>
+# Copyright (c) 2005-2020, Ilya Etingof <etingof@gmail.com>
 # License: http://snmplabs.com/pyasn1/license.html
 #
 import sys
+import unittest
 
 from pyasn1.codec.der import decoder as der_decoder
 from pyasn1.codec.der import encoder as der_encoder
-
 from pyasn1.type import char
 from pyasn1.type import namedtype
 from pyasn1.type import univ
 
 from pyasn1_modules import pem
-from pyasn1_modules import rfc5280
 from pyasn1_modules import rfc5652
 from pyasn1_modules import rfc6402
-
-try:
-    import unittest2 as unittest
-
-except ImportError:
-    import unittest
 
 
 class ContentInfoTestCase(unittest.TestCase):
@@ -81,9 +74,9 @@ xicQmJP+VoMHo/ZpjFY9fYCjNZUArgKsEwK/s+p9yrVVeB1Nf8Mn
                 substrate, asn1Spec=layers[next_layer]
             )
 
-            assert not rest
-            assert asn1Object.prettyPrint()
-            assert der_encoder.encode(asn1Object) == substrate
+            self.assertFalse(rest)
+            self.assertTrue(asn1Object.prettyPrint())
+            self.assertEqual(substrate, der_encoder.encode(asn1Object))
 
             substrate = getNextSubstrate[next_layer](asn1Object)
             next_layer = getNextLayer[next_layer](asn1Object)
@@ -125,46 +118,52 @@ xicQmJP+VoMHo/ZpjFY9fYCjNZUArgKsEwK/s+p9yrVVeB1Nf8Mn
         substrate = pem.readBase64fromText(self.pem_text)
         asn1Object, rest = der_decoder.decode(substrate,
             asn1Spec=rfc5652.ContentInfo(), decodeOpenTypes=True)
-        assert not rest
-        assert asn1Object.prettyPrint()
-        assert der_encoder.encode(asn1Object) == substrate
+        self.assertFalse(rest)
+        self.assertTrue(asn1Object.prettyPrint())
+        self.assertEqual(substrate, der_encoder.encode(asn1Object))
 
         eci = asn1Object['content']['encapContentInfo']
-        assert eci['eContentType'] in rfc5652.cmsContentTypesMap.keys()
-        assert eci['eContentType'] == rfc6402.id_cct_PKIData
+
+        self.assertIn(eci['eContentType'], rfc5652.cmsContentTypesMap)
+        self.assertEqual(rfc6402.id_cct_PKIData, eci['eContentType'])
+
         pkid, rest = der_decoder.decode(eci['eContent'],
             asn1Spec=rfc5652.cmsContentTypesMap[eci['eContentType']],
             openTypes=openTypeMap,
             decodeOpenTypes=True)
-        assert not rest
-        assert pkid.prettyPrint()
-        assert der_encoder.encode(pkid) == eci['eContent']
+
+        self.assertFalse(rest)
+        self.assertTrue(pkid.prettyPrint())
+        self.assertEqual(eci['eContent'], der_encoder.encode(pkid))
 
         for req in pkid['reqSequence']:
             cr = req['tcr']['certificationRequest']
 
             sig_alg = cr['signatureAlgorithm']
-            assert sig_alg['algorithm'] in openTypeMap.keys()
-            assert sig_alg['parameters'] == univ.Null("")
+
+            self.assertIn(sig_alg['algorithm'], openTypeMap)
+            self.assertEqual(univ.Null(""), sig_alg['parameters'])
 
             cri = cr['certificationRequestInfo']
             spki_alg = cri['subjectPublicKeyInfo']['algorithm']
-            assert spki_alg['algorithm'] in openTypeMap.keys()
-            assert spki_alg['parameters'] == univ.Null("")
+
+            self.assertIn( spki_alg['algorithm'], openTypeMap)
+            self.assertEqual(univ.Null(""), spki_alg['parameters'])
 
             attrs = cr['certificationRequestInfo']['attributes']
+
             for attr in attrs:
-                assert attr['attrType'] in openTypeMap.keys()
+                self.assertIn(attr['attrType'], openTypeMap)
+
                 if attr['attrType'] == univ.ObjectIdentifier('1.3.6.1.4.1.311.13.2.3'):
-                    assert attr['attrValues'][0] == "6.2.9200.2"
+                    self.assertEqual("6.2.9200.2", attr['attrValues'][0])
+
                 else:
-                    assert attr['attrValues'][0].hasValue()
+                    self.assertTrue(attr['attrValues'][0].hasValue())
 
 
 suite = unittest.TestLoader().loadTestsFromModule(sys.modules[__name__])
 
 if __name__ == '__main__':
-    import sys
-
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     sys.exit(not result.wasSuccessful())

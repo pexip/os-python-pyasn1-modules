@@ -5,22 +5,16 @@
 # Copyright (c) 2019, Vigil Security, LLC
 # License: http://snmplabs.com/pyasn1/license.html
 #
-
 import sys
+import unittest
 
-from pyasn1.codec.der.decoder import decode as der_decode
-from pyasn1.codec.der.encoder import encode as der_encode
-
+from pyasn1.codec.der.decoder import decode as der_decoder
+from pyasn1.codec.der.encoder import encode as der_encoder
 from pyasn1.type import univ
 
 from pyasn1_modules import pem
 from pyasn1_modules import rfc5652
 from pyasn1_modules import rfc5751
-
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
 
 
 class SignedMessageTestCase(unittest.TestCase):
@@ -72,38 +66,38 @@ LQIVALwzN2XE93BcF0kTqkyFyrtSkUhZAhRjlqIUi89X3rBIX2xk3YQESV8cyg==
         smimeCapMap.update(rfc5751.smimeCapabilityMap)
 
         substrate = pem.readBase64fromText(self.pem_text)
-        asn1Object, rest = der_decode (substrate,
-            asn1Spec=self.asn1Spec,
-            decodeOpenTypes=True)
-        assert not rest
-        assert asn1Object.prettyPrint()
-        assert der_encode(asn1Object) == substrate
+        asn1Object, rest = der_decoder (substrate,
+                                        asn1Spec=self.asn1Spec,
+                                        decodeOpenTypes=True)
+        self.assertFalse(rest)
+        self.assertTrue(asn1Object.prettyPrint())
+        self.assertEqual(substrate, der_encoder(asn1Object))
 
-        assert asn1Object['contentType'] == rfc5652.id_signedData
-        assert asn1Object['content']['version'] == 1
+        self.assertEqual(rfc5652.id_signedData, asn1Object['contentType'])
+        self.assertEqual(1, asn1Object['content']['version'])
 
         for si in asn1Object['content']['signerInfos']:
-            assert si['version'] == 1
+            self.assertEqual(1, si['version'])
+
             for attr in si['signedAttrs']:
 
                 if attr['attrType'] == rfc5751.smimeCapabilities:
                     for scap in attr['attrValues'][0]:
                         if scap['capabilityID'] in smimeCapMap.keys():
-                            scap_p, rest = der_decode(scap['parameters'],
-                                asn1Spec=smimeCapMap[scap['capabilityID']])
-                            assert not rest
-                            assert der_encode(scap_p) == scap['parameters']
-                            assert 'parameters' in scap_p.prettyPrint()
+                            scap_p, rest = der_decoder(scap['parameters'],
+                                                       asn1Spec=smimeCapMap[scap['capabilityID']])
+                            self.assertFalse(rest)
+                            self.assertEqual(scap['parameters'], der_encoder(scap_p))
+                            self.assertIn('parameters', scap_p.prettyPrint())
 
                 if attr['attrType'] == rfc5751.id_aa_encrypKeyPref:
                     ekp_issuer_serial = attr['attrValues'][0]['issuerAndSerialNumber']
-                    assert ekp_issuer_serial['serialNumber'] == 173360179
+
+                    self.assertEqual(173360179, ekp_issuer_serial['serialNumber'])
 
 
 suite = unittest.TestLoader().loadTestsFromModule(sys.modules[__name__])
 
 if __name__ == '__main__':
-    import sys
-
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     sys.exit(not result.wasSuccessful())
