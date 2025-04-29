@@ -1,3 +1,9 @@
+python-pyasn1-modules (0.4.1-2+pexip25u1) pexip-trixie; urgency=medium
+
+  * Initial trixie build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Tue, 29 Apr 2025 22:55:53 +0100
+
 python-pyasn1-modules (0.4.1-2) unstable; urgency=medium
 
   * Team upload.
